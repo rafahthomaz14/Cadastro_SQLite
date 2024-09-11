@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cadastro_cliente.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -86,6 +87,35 @@ namespace Cadastro_cliente.Data
             
 
 
+        }
+
+
+        public static List<Cliente> ListaCliente()
+        {
+            List<Cliente>clientes = new List<Cliente>();
+
+            try
+            {
+                using(var comando = DbConnection().CreateCommand())
+                {
+                    comando.CommandText = "SELECT * FROM Clientes";
+
+                    using (var leitor =  comando.ExecuteReader())
+                    {
+                        while (leitor.Read())
+                        {
+                            Cliente cliente= new Cliente(Convert.ToInt32(leitor["Id"]), leitor["Nome"].ToString(), leitor["Endereco"].ToString());
+                            clientes.Add(cliente);
+                        }
+                    }
+                }
+
+
+            }catch (SQLiteException ex)
+            {
+                Console.WriteLine("ERRO SQLite");
+            }
+            return clientes;
         }
     }
 }
