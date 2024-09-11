@@ -59,5 +59,33 @@ namespace Cadastro_cliente.Data
                 Console.WriteLine("ERRO BANCO DE DADOS");
             }
         }
+
+
+        public static void RemoverCliente()
+        {
+            try
+            {
+                Console.WriteLine("Digite o Id do Cliente:");
+                int Id = Convert.ToInt32(Console.ReadLine());
+
+                using (var comando = DbConnection().CreateCommand())
+                {
+                    comando.CommandText = "DELETE FROM Clientes WHERE Id = @id";
+                    comando.Parameters.AddWithValue("@id", Id);
+
+                    int linhasAfetadas = comando.ExecuteNonQuery();
+                    if (linhasAfetadas > 0)
+                    {
+                        Console.WriteLine("Cliente removido com sucesso!");
+                    }
+                }
+            }catch(SQLiteException ex)
+            {
+                Console.WriteLine("ERRO SQL");
+            }
+            
+
+
+        }
     }
 }

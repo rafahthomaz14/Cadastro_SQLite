@@ -17,9 +17,9 @@ namespace Cadastro_cliente
             {
                 Console.WriteLine("Houve um problema ao tentar estabelecer a conexão no Program.");
             }*/
-
-
-            DALCliente.AdicionarCliente();
+            
+            
+            DALCliente.RemoverCliente();
         }
     }
 }
